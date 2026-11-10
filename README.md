@@ -1,70 +1,60 @@
 # opencode-web-ui-enhancer
 
-Plugin **additivo** per migliorare il design di OpenCode **senza modificare** il repository ufficiale.
+Migliora la **grafica di `opencode web` in Chrome** senza modificare il codice ufficiale di OpenCode.
 
-Usa le API ufficiali dei plugin OpenCode v2:
+> Target reale: `opencode web` (browser).  
+> Non usiamo OpenCode Desktop.  
+> I plugin server/GUI ufficiali **non possono** restylare questa UI web: usiamo **CSS + userscript**.
 
-- **Server part** → `src/index.ts` (id stabile del plugin)
-- **GUI part** → `src/gui.tsx` (temi, stili CSS, comandi)
+Repo: https://github.com/zema-tech/opencode-web-ui-enhancer
 
-## Cosa fa (v0.1)
+## Riferimenti design (i tuoi file)
 
-- Tema **Aurora** (light/dark) in **Settings → Appearance → Theme**
-- Stili **polished**: radius più morbidi, ombre soft, scrollbar, composer
-- Comandi palette:
-  - `Toggle polished UI styles`
-  - `Toggle compact chat density`
-- Preferenze persistenti via `Store.global`
+| File | Uso |
+|------|-----|
+| `Grok.mht` | Riferimento look Grok (nero, minimale) |
+| `Nuova sessione - Claude.mht` | Riferimento look Claude (caldo, soft) |
+| `DESIGN.md` | Direzione unificata e token |
 
-## Installazione locale (sviluppo)
+## Come provarlo (2 minuti)
 
-```bash
-git clone https://github.com/zema-tech/opencode-web-ui-enhancer.git
-cd opencode-web-ui-enhancer
-bun install
-bun run build
+### Opzione A — Stylus (solo CSS, consigliata)
+
+1. Installa [Stylus](https://chromewebstore.google.com/detail/stylus) su Chrome  
+2. Apri il file [`browser/opencode-web-enhancer.user.css`](./browser/opencode-web-enhancer.user.css)  
+3. Copia tutto → in Stylus: **Write style for this URL** sulla pagina di OpenCode web → incolla → Save  
+4. Ricarica `opencode web`
+
+### Opzione B — Tampermonkey
+
+1. Installa [Tampermonkey](https://chromewebstore.google.com/detail/tampermonkey)  
+2. Nuovo script → incolla [`browser/opencode-web-enhancer.user.js`](./browser/opencode-web-enhancer.user.js)  
+3. Salva e ricarica la pagina OpenCode web
+
+> Se la pagina non è su `localhost` / `127.0.0.1`, aggiungi il tuo `@match` (host:porta reali).
+
+## Struttura repo
+
+```
+.
+├── DESIGN.md                 # direzione design (Claude + Grok)
+├── Grok.mht                  # riferimento UI Grok
+├── Nuova sessione - Claude.mht
+├── browser/
+│   ├── opencode-web-enhancer.user.css   # Stylus
+│   └── opencode-web-enhancer.user.js    # Tampermonkey
+└── src/                      # vecchio scaffold plugin Desktop (non usato per opencode web)
 ```
 
-Aggiungi il plugin alla config **globale** (Desktop carica la GUI da lì):
+## Prossimi passi (design su GitHub)
 
-`~/.config/opencode/opencode.jsonc`
+1. Apri `opencode web` in Chrome  
+2. Ispettore elementi sui pezzi brutti (sidebar, composer, messaggi, code)  
+3. Incolli qui class/id reali → affiniamo i selettori CSS  
+4. Iteriamo palette / densità / radius finché ti piace
 
-```jsonc
-{
-  "$schema": "https://opencode.ai/config.json",
-  "plugins": [
-    "/percorso/assoluto/a/opencode-web-ui-enhancer"
-  ]
-}
-```
+## Note
 
-Oppure in sviluppo con watch:
-
-```bash
-bun run dev
-```
-
-Poi ricarica il plugin da **Settings → Extensions → Plugins** oppure riavvia OpenCode Desktop.
-
-## Nota importante: Desktop vs Web browser
-
-Le API ufficiali `./gui-experimental` (`Style`, `Theme`, `Command`, pannelli…) sono pensate per **OpenCode Desktop**.
-
-- Se usi **OpenCode Desktop** → questo plugin è la strada corretta.
-- Se usi solo **`opencode web` nel browser** o una UI community (es. oc-web), le GUI plugin ufficiali possono non applicarsi allo stesso modo. In quel caso si può:
-  1. estendere questo plugin lato server (tool/hook),
-  2. oppure fare un userscript / estensione browser / fork di una web UI community.
-
-Dimmi quale interfaccia usi davvero e che miglioramenti design vuoi (palette, densità, layout, pannelli…) e li implementiamo.
-
-## Roadmap suggerita
-
-- [ ] Pannello Settings del plugin (toggle polished / compact)
-- [ ] Più temi (es. Nord, Catppuccin-like)
-- [ ] Slot titolo / composer pills
-- [ ] Modalità "focus" (nasconde rumore UI)
-- [ ] Eventuale bridge per pure web UI
-
-## Licenza
-
-MIT
+- Non tocchiamo il binario OpenCode  
+- Gli override CSS possono rompersi se OpenCode cambia le class CSS  
+- Per questo i selettori iniziali sono **best-effort**; li stringiamo con la DOM reale
