@@ -1,0 +1,37 @@
+{
+  "$schema": "https://opencode.ai/desktop-theme.json",
+  "name": "Aurora",
+  "id": "aurora",
+  "light": {
+    "palette": {
+      "neutral": "#f4f6fb",
+      "ink": "#1a1d27",
+      "primary": "#5b7cfa",
+      "success": "#2f9e77",
+      "warning": "#d97706",
+      "error": "#e11d48",
+      "info": "#0ea5e9"
+    },
+    "overrides": {
+      "syntax-keyword": "#5b7cfa",
+      "syntax-string": "#2f9e77",
+      "syntax-comment": "#6b7280"
+    }
+  },
+  "dark": {
+    "palette": {
+      "neutral": "#0f1219",
+      "ink": "#e8ecf4",
+      "primary": "#8ba4ff",
+      "success": "#3ecf8e",
+      "warning": "#fbbf24",
+      "error": "#fb7185",
+      "info": "#38bdf8"
+    },
+    "overrides": {
+      "syntax-keyword": "#8ba4ff",
+      "syntax-string": "#3ecf8e",
+      "syntax-comment": "#7c8498"
+    }
+  }
+}
