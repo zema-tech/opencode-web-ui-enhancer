@@ -1,0 +1,71 @@
+/* Polished OpenCode UI — additive only, does not replace app logic */
+
+:root {
+  --ui-radius-sm: 8px;
+  --ui-radius-md: 12px;
+  --ui-radius-lg: 16px;
+  --ui-shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Softer panels and cards */
+[data-component="panel"],
+[data-component="card"],
+.panel,
+.card {
+  border-radius: var(--ui-radius-md) !important;
+}
+
+/* Composer polish */
+[data-component="composer"],
+.composer,
+textarea[data-prompt] {
+  border-radius: var(--ui-radius-lg) !important;
+  box-shadow: var(--ui-shadow-soft);
+}
+
+/* Message bubbles / blocks */
+[data-component="message"],
+.message {
+  border-radius: var(--ui-radius-md) !important;
+}
+
+/* Buttons */
+button,
+[role="button"] {
+  border-radius: var(--ui-radius-sm) !important;
+  transition: transform 120ms ease, opacity 120ms ease, background-color 120ms ease;
+}
+
+button:active,
+[role="button"]:active {
+  transform: translateY(1px);
+}
+
+/* Sidebar / list density */
+[data-component="sidebar"] {
+  letter-spacing: 0.01em;
+}
+
+/* Code blocks */
+pre,
+code {
+  border-radius: var(--ui-radius-sm) !important;
+}
+
+/* Scrollbars (webkit) */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, currentColor 25%, transparent);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, currentColor 40%, transparent);
+  background-clip: content-box;
+}
